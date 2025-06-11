@@ -26,7 +26,7 @@ class BranchDesign(DesignJob):
         """Metadata describing this design job."""
 
         design_mode = DesignModeChoices.DEPLOYMENT
-        name = "Branch Design"
+        name = "Deploy Branch Site with Design Builder"
         description = "Create a new branch site."
         version = "1.0"
         docs = "A basic design for new branches."
