@@ -70,12 +70,12 @@ class NutJob(Job):
             nodes=nodes,
         )
 
-        generate_test_file(
-            template_filename="test_ospf_adj.yaml.j2",
-            output_filename="tests/test_ospf_adj.yaml",
-            device_group=device_group,
-            nodes=nodes,
-        )
+        # generate_test_file(
+        #     template_filename="test_ospf_adj.yaml.j2",
+        #     output_filename="tests/test_ospf_adj.yaml",
+        #     device_group=device_group,
+        #     nodes=nodes,
+        # )
 
         device_peers = []
         role = Role.objects.get(name='Branch:L3Link')
