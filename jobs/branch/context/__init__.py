@@ -1,21 +1,15 @@
 """This module contains the render context for the basic design."""
 
 from django.core.exceptions import ObjectDoesNotExist
-from netaddr import IPNetwork
 
 from nautobot_design_builder.errors import DesignValidationError
 from nautobot_design_builder.context import Context, context_file
-from nautobot_design_builder.jinja_filters import network_string, network_offset
 
 from nautobot.dcim.models import Location
 from nautobot.extras.models import Status
 from nautobot.ipam.models import Prefix
 
 BRANCH_SUPERNET_PREFIXLEN = 21
-
-@context_file("context.yaml")
-class BaseDataContext(Context):
-    """Render context for base data."""
 
 @context_file("context.yaml")
 class BranchDesignContext(Context):

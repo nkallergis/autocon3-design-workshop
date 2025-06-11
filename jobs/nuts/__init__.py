@@ -15,7 +15,7 @@ from nautobot.ipam.models import IPAddress
 
 from containerlab.models import Topology
 
-name = "GRNOG18"  # pylint: disable=invalid-name
+name = "Branch Site Jobs"  # pylint: disable=invalid-name
 
 def generate_test_file(template_filename: str, output_filename: str, device_group: DynamicGroup, **kwargs):
     """Generate a test file from a Jinja2 template."""
