@@ -1,3 +1,12 @@
 router ospf 1
    max-lsa 12000
+{% for interface in interfaces %}
+{% if interface["ip_addresses"] | length > 0 %}
+{% for addr in interface["ip_addresses"] %}
+{% if addr["address"] is defined %}
+   network {{ addr["network"] }} area 0
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
 !
