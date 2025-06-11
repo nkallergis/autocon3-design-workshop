@@ -4,7 +4,7 @@ router ospf 1
 {% if interface["ip_addresses"] | length > 0 %}
 {% for addr in interface["ip_addresses"] %}
 {% if addr["address"] is defined %}
-   network {{ addr["address"] | ipaddress("network") }} area 0.0.0.0
+   network {{ addr["address"] | ipaddress_network }} area 0.0.0.0
 {% endif %}
 {% endfor %}
 {% endif %}
