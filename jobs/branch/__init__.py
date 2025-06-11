@@ -9,7 +9,7 @@ from nautobot_design_builder.design_job import DesignJob
 
 from .context import BaseDataContext, BranchDesignContext
 
-name = "AUTOCON3"
+name = "GRNOG18"
 
 class BaseData(DesignJob):
     """Load base data."""

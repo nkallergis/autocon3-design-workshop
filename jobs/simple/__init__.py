@@ -5,7 +5,7 @@ from nautobot_design_builder.design_job import DesignJob
 
 from .context import SimpleDesignContext
 
-name = "AUTOCON3"
+name = "GRNOG18"
 
 class SimpleDesign(DesignJob):
     """A simple design to learn."""

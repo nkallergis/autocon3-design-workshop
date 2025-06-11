@@ -15,7 +15,7 @@ from nautobot.ipam.models import IPAddress
 
 from containerlab.models import Topology
 
-name = "AUTOCON3"  # pylint: disable=invalid-name
+name = "GRNOG18"  # pylint: disable=invalid-name
 
 def generate_test_file(template_filename: str, output_filename: str, topology: Topology, **kwargs):
     """Generate a test file from a Jinja2 template."""
