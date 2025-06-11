@@ -10,14 +10,14 @@ from jinja2 import Environment, FileSystemLoader
 
 from nautobot.apps.jobs import Job, ObjectVar, register_jobs
 from nautobot.dcim.models import Interface
-from nautobot.extras.models import Role
+from nautobot.extras.models import Role, DynamicGroup
 from nautobot.ipam.models import IPAddress
 
 from containerlab.models import Topology
 
 name = "GRNOG18"  # pylint: disable=invalid-name
 
-def generate_test_file(template_filename: str, output_filename: str, topology: Topology, **kwargs):
+def generate_test_file(template_filename: str, output_filename: str, device_group: DynamicGroup, **kwargs):
     """Generate a test file from a Jinja2 template."""
     pwd = Path(__file__).parent
     template_path = pwd / "templates"
@@ -27,7 +27,7 @@ def generate_test_file(template_filename: str, output_filename: str, topology: T
     lstrip_blocks=True,
     )
     template = env.get_template(template_filename)
-    output = template.render(topology=topology, **kwargs)
+    output = template.render(device_group=device_group, **kwargs)
     output_path = pwd / output_filename
     if output_path.exists():
         output_path.unlink()
@@ -36,10 +36,10 @@ def generate_test_file(template_filename: str, output_filename: str, topology: T
 class NutJob(Job):
     """A job to run NUTS tests."""
 
-    topology = ObjectVar(
-        description="The topology to use for the tests.",
-        model=Topology,
-        required=True,
+    device_group = ObjectVar(
+        description="The Device Group to test against.",
+        model=DynamicGroup,
+        required=True
     )
 
     class Meta:
@@ -49,34 +49,34 @@ class NutJob(Job):
         description = "A job to run NUTS tests."
         has_sensitive_variables = False
 
-    def generate_test_files(self, topology: Topology):
-        """Generate NUTS tests from the topology."""
+    def generate_test_files(self, device_group: DynamicGroup):
+        """Generate NUTS tests from the device group."""
 
-        # Get devices from the topology
-        devices = topology.dynamic_group.members.all()
+        # Get devices from the dynamic group
+        devices = device_group.members.all()
         if not devices:
-            self.logger.error("No devices found in the topology.")
+            self.logger.error("No devices found in the selected group.")
             return {}
         nodes = [device.name for device in devices]
         
         generate_test_file(
             template_filename="hosts.yaml.j2",
             output_filename="/source/inventory/hosts.yaml",
-            topology=topology,
+            device_group=device_group,
             nodes=nodes,
         )
 
         generate_test_file(
             template_filename="test_lldp_adj.yaml.j2",
             output_filename="tests/test_lldp_adj.yaml",
-            topology=topology,
+            device_group=device_group,
             nodes=nodes,
         )
 
         generate_test_file(
             template_filename="test_ospf_adj.yaml.j2",
             output_filename="tests/test_ospf_adj.yaml",
-            topology=topology,
+            device_group=device_group,
             nodes=nodes,
         )
 
@@ -90,7 +90,7 @@ class NutJob(Job):
         generate_test_file(
             template_filename="test_ping_connected.yaml.j2",
             output_filename="tests/test_ping_connected.yaml",
-            topology=topology,
+            device_group=device_group,
             device_peers=device_peers,
         )
 
@@ -105,15 +105,15 @@ class NutJob(Job):
         generate_test_file(
             template_filename="test_ping_loopbacks.yaml.j2",
             output_filename="tests/test_ping_loopbacks.yaml",
-            topology=topology,
+            device_group=device_group,
             device_remoteloopbacks=device_remoteloopbacks,
         )
 
-    def run(self, topology: Topology):  # pylint: disable=arguments-differ
+    def run(self, device_group: DynamicGroup):  # pylint: disable=arguments-differ
         """Run NUTS tests."""
 
         # Construct the tests
-        self.generate_test_files(topology)
+        self.generate_test_files(device_group)
 
         self.logger.info("Running NUTS tests...")
 

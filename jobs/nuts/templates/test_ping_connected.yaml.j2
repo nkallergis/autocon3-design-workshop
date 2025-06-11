@@ -5,7 +5,7 @@
     count: 5
   test_data:
 {% for device, peer in device_peers %}
-    - host: clab-{{ topology.name }}-{{ device }}
+    - host: clab-{{ device_group.name }}-{{ device }}
       destination: {{ peer }}
       expected: SUCCESS
       max_drop: 2
