@@ -1,5 +1,5 @@
 """Basic design demonstrates the capabilities of the Design Builder."""
-from nautobot.apps.jobs import register_jobs, StringVar, IPNetworkVar, ObjectVar
+from nautobot.apps.jobs import register_jobs, StringVar, IPNetworkVar, ObjectVar, BooleanVar
 
 from nautobot.dcim.models import Location
 
@@ -32,8 +32,8 @@ class BranchDesign(DesignJob):
         description="Region for the new branch",
         model=Location,
     )
-
     site_name = StringVar(label="Site Name", regex=r"\w{3}\d+")
+    lab_topology = BooleanVar(label="Containerlab topology?", default=False, description="Generate a digital twin for the design (containerlab).")
 
     class Meta:
         """Metadata describing this design job."""

@@ -198,7 +198,9 @@ dynamic_groups:
       "!get:app_label": "dcim"
     filter: {"location": ["{{ site_name }}"]} 
 
+{% if lab_topology %}
 containerlab_topologies:
   - "!create_or_update:name": "{{ site_name }}"
     description: "Containerlab topology for {{ site_name }}"
     dynamic_group__name: "{{ site_name }}"
+{% endif %}
