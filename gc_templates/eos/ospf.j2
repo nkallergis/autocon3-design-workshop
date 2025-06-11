@@ -1,5 +1,4 @@
 router ospf 1
-   max-lsa 12000
 {% for interface in interfaces %}
 {% if interface["ip_addresses"] | length > 0 %}
 {% for addr in interface["ip_addresses"] %}
@@ -9,4 +8,5 @@ router ospf 1
 {% endfor %}
 {% endif %}
 {% endfor %}
+   max-lsa 12000
 !
