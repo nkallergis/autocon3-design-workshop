@@ -57,6 +57,11 @@ locations:
         status__name: "Active"
         tenant__name: "Autocon3"
 
+    clusters:
+      - "!create_or_update:name": "{{ site_name }}-cluster1"
+        cluster_type__name: "Generic"
+        tenant__name: "Autocon3"
+
     devices:
     # ----- ROUTERS -----
     {% for rtr in range(2) %}
@@ -261,3 +266,4 @@ containerlab_topologies:
     description: "Containerlab topology for {{ site_name }}"
     dynamic_group__name: "{{ site_name }}"
 {% endif %}
+
