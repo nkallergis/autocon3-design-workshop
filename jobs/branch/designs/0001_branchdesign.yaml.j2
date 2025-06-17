@@ -294,8 +294,3 @@ storage_allocations:
     tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
     "!ref": "{{ site_name }}-object{{ sa + 1 }}"
   {% endfor %}
-
-relationship_associations:
-  - "!create_or_update:relationship__key": "device_storage_allocation"
-    "!create_or_update:source": "!ref:{{ site_name }}-object1"
-    "!create_or_update:destination": "!ref:{{ site_name }}-stg1"
