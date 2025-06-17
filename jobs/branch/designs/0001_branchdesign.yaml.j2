@@ -282,15 +282,20 @@ storage_allocations:
     storage_protocol__name: "iSCSI"
     capacity: 100
     tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
+    "!ref": "{{ site_name }}-block{{ sa + 1 }}"
   - "!create_or_update:name": "{{ site_name }}-file{{ sa + 1 }}"
     storage_protocol__name: "NFSv4"
     capacity: 100
     tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
+    "!ref": "{{ site_name }}-file{{ sa + 1 }}"
   - "!create_or_update:name": "{{ site_name }}-object{{ sa + 1 }}"
     storage_protocol__name: "S3"
     capacity: 100
     tenant: "!ref:{{ site_name }}-tenant{{ sa + 1 }}"
+    "!ref": "{{ site_name }}-object{{ sa + 1 }}"
   {% endfor %}
 
 relationship_associations:
-
+  - "!create_or_update:relationship__key": "device_storage_allocation"
+    "!create_or_update:source": "!ref:{{ site_name }}-object{{ sa + 1 }}"
+    "!create_or_update:destination": "!ref:{{ site_name }}-stg{{ stg + 1 }}"
