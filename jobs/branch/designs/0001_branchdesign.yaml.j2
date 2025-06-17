@@ -160,6 +160,7 @@ locations:
               to: "!ref:{{ site_name }}-sw{{ port + 1 }}:eth{{ srv + 3 }}"
               status__name: "Connected"
         {% endfor %}
+    {% endfor %}
     # ----- Storage -----
     {% for stg in range(1) %}
       - "!create_or_update:name": "{{ site_name }}-stg{{ stg + 1 }}"
