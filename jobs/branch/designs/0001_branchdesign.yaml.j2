@@ -274,12 +274,12 @@ tenants:
   - "!create_or_update:name": "{{ site_name }}-tenant{{ tenant }}"
   {% endfor %}
 
-storage_allocations:
-  # ----- BLOCK ALLOCATIONS -----
-  {% for sa in range(4) %}
-  - "!create_or_update:name": "{{ site_name }}-block{{ sa +1 }}"
-    cluster__name: "{{ site_name }}-cluster1"
-    tenant__name: "{{ site_name }}-tenant{{ sa }}"
-    capacity: 100
-    storage_protocol__name: "iSCSI"
-  {% endfor %}
+# storage_allocations:
+#   # ----- BLOCK ALLOCATIONS -----
+#   {% for sa in range(4) %}
+#   - "!create_or_update:name": "{{ site_name }}-block{{ sa + 1 }}"
+#     cluster__name: "{{ site_name }}-cluster1"
+#     tenant__name: "{{ site_name }}-tenant{{ sa }}"
+#     capacity: 100
+#     storage_protocol__name: "iSCSI"
+#   {% endfor %}
