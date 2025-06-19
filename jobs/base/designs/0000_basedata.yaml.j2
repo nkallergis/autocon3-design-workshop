@@ -33,6 +33,7 @@ platforms:
   - "!create_or_update:name": "Arista EOS"
     manufacturer__name: "Arista"
     "network_driver": "arista_eos"
+  - "!create_or_update:name": "Linux"
 
 software_versions:
   - "!create_or_update:version": "4.32.1F"
@@ -44,8 +45,18 @@ device_types:
     manufacturer__name: "Arista"
   - "!create_or_update:model": "HP Dummy Server"
     manufacturer__name: "HP"
+  - "!create_or_update:model": "HP Storage"
+    manufacturer__name: "HP"
 
 roles:
+  - "!create_or_update:name": "Storage Array"
+    color: "90708b"
+    content_types:
+      - { "!get:model": "device" }
+  - "!create_or_update:name": "Server"
+    color: "60708b"
+    content_types:
+      - { "!get:model": "device" }
   - "!create_or_update:name": "Router"
     color: "607d8b"
     content_types:
